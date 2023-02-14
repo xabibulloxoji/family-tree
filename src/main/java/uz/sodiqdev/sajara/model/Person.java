@@ -1,15 +1,13 @@
 package uz.sodiqdev.sajara.model;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.ManyToAny;
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 
 @Getter
 @Setter
@@ -30,18 +28,16 @@ public class Person {
 
     private String gender;
 
-    private boolean isStep;
+    private boolean isAdopted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Person father;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Person mother;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Person> spouse;
 
-    @ManyToMany
-    private List<Person> children;
 
 }

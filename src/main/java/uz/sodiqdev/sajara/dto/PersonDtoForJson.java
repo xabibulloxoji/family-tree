@@ -6,27 +6,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonDto {
+public class PersonDtoForJson {
 
     private String firstName;
 
-    private String lastName;
-
-    private LocalDate isDead;
-
-    private boolean isAdopted;
+    private boolean isApdopted;
 
     private String gender;
 
-    private Integer spouseId;
+    private LocalDate isDead;
 
-    private Integer fatherId;
+    private Integer spouseIds;
 
-    private Integer motherId;
+    private List<PersonDtoForJson> children;
 
+    private List<PersonDtoForJson> childrens;
 }
