@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import uz.sodiqdev.sajara.projection.SpouseProjection;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class PersonDtoForJson {
 
+    private Integer id;
+
     private String firstName;
 
     private boolean isApdopted;
@@ -23,9 +26,8 @@ public class PersonDtoForJson {
 
     private LocalDate isDead;
 
-    private Integer spouseIds;
+    private List<SpouseProjection> spouses;
 
     private List<PersonDtoForJson> children;
 
-    private List<PersonDtoForJson> childrens;
 }

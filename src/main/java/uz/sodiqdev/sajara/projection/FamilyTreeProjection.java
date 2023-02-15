@@ -13,8 +13,8 @@ public interface FamilyTreeProjection {
 
     LocalDate getIsDead();
 
-    List<FamilyTreeProjection> getSpouseIds();
+    List<Integer> getSpouseIds();
 
-    List<FamilyTreeProjection> getChildIds();
+    List<Integer> getChildIds();
 
 }
