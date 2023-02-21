@@ -1,9 +1,9 @@
 package uz.sodiqdev.sajara.projection;
 
+public interface FeederMothersProjection {
 
-public interface SpouseProjection {
-
-     Integer getid();
+    Integer getId();
 
     String getFirstName();
+
 }

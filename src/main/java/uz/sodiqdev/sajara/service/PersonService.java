@@ -4,8 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.sodiqdev.sajara.dto.PersonDto;
 import uz.sodiqdev.sajara.dto.PersonDtoForJson;
-import uz.sodiqdev.sajara.projection.SpouseProjection;
 import uz.sodiqdev.sajara.model.Person;
+import uz.sodiqdev.sajara.projection.FeederMothersProjection;
+import uz.sodiqdev.sajara.projection.SpouseProjection;
 import uz.sodiqdev.sajara.repository.PersonRepository;
 
 import java.util.ArrayList;
@@ -60,10 +61,18 @@ public class PersonService {
             Person person = optionalPerson.get();
             personDtoForJson.setId(person.getId());
             personDtoForJson.setFirstName(person.getFirstName());
+            if (person.getFather() != null)
+                personDtoForJson.setFatherId(person.getFather().getId());
+            if (person.getMother() != null)
+                personDtoForJson.setMotherId(person.getMother().getId());
             personDtoForJson.setApdopted(person.isAdopted());
             personDtoForJson.setGender(person.getGender());
             personDtoForJson.setIsDead(person.getIsDead());
-            personDtoForJson.setSpouses(getSpouses(id));
+            personDtoForJson.setSpouses(getSpouse(id));
+//            if (getFeederMothers(id)!=null) {
+//                personDtoForJson.setFeederMmothers(getFeederMothers(id));
+//            }
+
             Optional<List<Integer>> optionalList;
             if (person.getGender().equalsIgnoreCase("male")) {
                 optionalList = personRepository.findByFatherId(id);
@@ -72,6 +81,35 @@ public class PersonService {
             } else {
                 return null;
             }
+
+//            List<Person> spouses = getSpouses(id);
+//            List<SpouseWithChildredDto> spouseWithChildredDtos = new ArrayList<>();
+//            List<PersonDtoForJson> children1 = new ArrayList<>();
+//            for (int i = 0; i < spouses.size(); i++) {
+//                SpouseWithChildredDto spouseWithChildredDto = new SpouseWithChildredDto();
+//                spouseWithChildredDto.setId(spouses.get(i).getId());
+//                spouseWithChildredDto.setFirstName(spouses.get(i).getFirstName());
+//                if (optionalList.isPresent()) {
+//                    List<Integer> integers = optionalList.get();
+//                    for (Integer integer : integers) {
+//                        Optional<Person> optionalChild = personRepository.findById(integer);
+//                        if (optionalChild.isPresent()) {
+//                            Person child = optionalChild.get();
+//                            if (person.getGender().equalsIgnoreCase("male") && child.getMother().getId() != person.getId()) {
+//                                PersonDtoForJson onePersonTree = getOnePersonTree(integer);
+//                                children1.add(onePersonTree);
+//                            } else if (person.getGender().equalsIgnoreCase("female") && child.getFather().getId() != person.getId()){
+//                                PersonDtoForJson onePersonTree = getOnePersonTree(integer);
+//                                children1.add(onePersonTree);
+//                            }
+//                        }
+//                    }
+//                }
+//                spouseWithChildredDto.setChildren(children1);
+//                spouseWithChildredDtos.add(spouseWithChildredDto);
+//            }
+//            personDtoForJson.setSpouses(spouseWithChildredDtos);
+
             List<PersonDtoForJson> children = new ArrayList<>();
             if (optionalList.isPresent()) {
                 List<Integer> ids = optionalList.get();
@@ -82,13 +120,19 @@ public class PersonService {
             }
             personDtoForJson.setChildren(children);
             return personDtoForJson;
+
         }
         return null;
     }
 
 
-    public List<SpouseProjection> getSpouses(Integer spouseId) {
-        Optional<List<SpouseProjection>> optionalSpouseDtoList = personRepository.findAllBySpouseId(spouseId);
-        return optionalSpouseDtoList.orElse(null);
+    public List<SpouseProjection> getSpouse(Integer spouseId) {
+        Optional<List<SpouseProjection>> optionalPersonList = personRepository.findAllBySpouseId(spouseId);
+        return optionalPersonList.orElse(null);
+    }
+
+    public List<FeederMothersProjection> getFeederMothers(Integer id){
+        List<FeederMothersProjection> feederMothers = personRepository.findByFeederMothers(id);
+        return feederMothers;
     }
 }

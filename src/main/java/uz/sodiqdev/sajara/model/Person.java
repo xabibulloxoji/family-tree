@@ -39,5 +39,6 @@ public class Person {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Person> spouse;
 
-
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Person> feederMothers;
 }
