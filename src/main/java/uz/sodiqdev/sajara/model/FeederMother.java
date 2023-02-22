@@ -1,28 +1,24 @@
 package uz.sodiqdev.sajara.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import uz.sodiqdev.sajara.model.template.AbsEntity;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class FeederMother {
+public class FeederMother extends AbsEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    private LocalDate startDate;
-
-    private LocalDate endDate;
+    @ManyToMany(mappedBy = "feederMothers")
+    @JsonIgnoreProperties(value = {"feederMothers"}, allowSetters = true)
+    private List<Person> feederMothers;
 }

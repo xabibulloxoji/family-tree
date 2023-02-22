@@ -1,5 +1,6 @@
 package uz.sodiqdev.sajara.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +40,16 @@ public class Person {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Person> spouse;
 
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Person> feederMothers;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "person_feeder_mother",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "feeder_mother_id")
+    )
+    @JsonIgnoreProperties(value = "person", allowSetters = true)
+    private List<Person> feederMothers;
+
+    @OneToMany
+    @JoinColumn(name = "person_id")
+    private List<Religion> religons;
 }
