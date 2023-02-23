@@ -1,14 +1,14 @@
 package uz.sodiqdev.sajara.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import uz.sodiqdev.sajara.model.enam.ReligionType;
 import uz.sodiqdev.sajara.model.template.AbsEntity;
+
+import java.util.List;
 
 @Getter
 @Setter

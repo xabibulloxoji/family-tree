@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "persons")
+@Entity(name = "person")
 public class Person {
 
     @Id
@@ -37,8 +37,6 @@ public class Person {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Person mother;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Person> spouse;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
@@ -47,9 +45,14 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "feeder_mother_id")
     )
     @JsonIgnoreProperties(value = "person", allowSetters = true)
-    private List<Person> feederMothers;
+    private List<FeederMother> feederMothers;
 
-    @OneToMany
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Person> spouse;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private List<Religion> religons;
+
 }

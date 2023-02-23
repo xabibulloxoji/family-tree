@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import uz.sodiqdev.sajara.projection.FeederMothersProjection;
+import uz.sodiqdev.sajara.projection.ReligionProjection;
 import uz.sodiqdev.sajara.projection.SpouseProjection;
 
 import java.time.LocalDate;
@@ -32,8 +33,9 @@ public class PersonDtoForJson {
 
     private List<SpouseProjection> spouses;
 
-//    private List<FeederMothersProjection> feederMmothers;
+    private List<FeederMothersProjection> feederMothers;
+
+    private ReligionProjection religion;
 
     private List<PersonDtoForJson> children;
-
 }

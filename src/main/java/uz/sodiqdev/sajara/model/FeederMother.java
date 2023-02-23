@@ -3,6 +3,8 @@ package uz.sodiqdev.sajara.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +15,11 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Entity
 public class FeederMother extends AbsEntity {
 
-    @ManyToMany(mappedBy = "feederMothers")
-    @JsonIgnoreProperties(value = {"feederMothers"}, allowSetters = true)
-    private List<Person> feederMothers;
+    @OneToOne
+    private Person mother;
 }
